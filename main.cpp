@@ -63,6 +63,7 @@ double point_to_ray(point p, point a, point b){
 
 int main() {
   point A, B, C, D;
+  bool parallel = false;
   cin>>A.x>>A.y>>B.x>>B.y>>C.x>>C.y>>D.x>>D.y;
   //пункт 1 - расстояние от А до С
   cout<<point_to_point(A, C)<<'\n';
@@ -76,6 +77,7 @@ int main() {
   point ab, cd;
   ab.setvector(A, B);
   cd.setvector(C, D);
+  parallel = abs(scalar(ab, cd)) == 1;
   //пункт 5 от отрезка AB до точки C, серьёзно?
   cout<<point_to_segment(C, A, B)<<'\n';
   //пункт 6 от отрезка AB до отрезка CD
@@ -89,15 +91,18 @@ int main() {
   //пункт 13 от прямой AB до точки C
   cout<<point_to_line(C, A, B)<<'\n';
   //пункт 14 от прямой AB до отрезка CD
+  if (parallel)
+    cout<<point_to_line(A, C, D)<<'\n';
+  else {} //тут будут непараллельные случаи
   //пункт 15 от прямой AB до луча CD
   //тут три случая: параллельны, пересекаются, луч направлен в другую сторону
-  if (abs(scalar(ab, cd)) == 1)
-    cout<<point_to_line(A, C, D);
+  if (parallel)
+    cout<<point_to_line(A, C, D)<<'\n';
   else {} //тут будут непараллельные случаи
   //пункт 16 от прямой AB до прямой CD
   //самое простое - если параллельны, то считаем как от точки до прямой, иначе 0
-  if (abs(scalar(ab, cd)) == 1)
-    cout<<point_to_line(A, C, D);
+  if (parallel)
+    cout<<point_to_line(A, C, D)<<'\n';
   else
     cout<<0;
   
